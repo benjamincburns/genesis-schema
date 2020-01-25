@@ -1,0 +1,45 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://whiteblock.io/schemas/test-definition-format/v1.0.0/schema/test.json",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "A short name used to identify the test in the UI and for data analysis purposes.",
+            "type": "string",
+            "pattern": "^[0-9a-zA-Z-_\\.]+$"
+        },
+        "description": {
+            "description": "A short description of the test being run.",
+            "type": "string"
+        },
+        "system": { 
+            "description": "An array that provides a definition for the distributed system under test.",
+            "type": "array",
+            "items": {
+                "$ref": "system-component.json#"
+            }
+        },
+        "phases": {
+            "description": "A sequence of test phase definition maps. Test phases define the sequence of events for Genesis to perform when executing this test.",
+            "type": "array",
+            "items": {
+                "$ref": "phase.json#"
+            },
+            "minItems": 1
+        },
+        "timeout": {
+            "description": "An integer value that specifies how long this test may execute before it should be killed by the test execution system. This value accepts the case-insensitive suffixes ms, s, and m. If no suffix is specified, it’s expected that the value is specified in seconds.\n\nA zero value indicates that no timeout should be enforced for this task.\n\n",
+            "type": ["string", "number"],
+            "pattern": "^infinite$|^[0-9]+(\\.[0-9]+)? ?([mM]?[sS]|[mM])?$",
+            "minimum": 0
+        },
+        "wait-for": {
+            "description": "The time to wait for until moving onto the first phase",
+            "type": ["string", "number"],
+            "pattern": "^infinite$|^[0-9]+(\\.[0-9]+)? ?([mM]?[sS]|[mM])?$",
+            "minimum": 0
+        }
+    },
+    "additionalProperties": false,
+    "required": [ "name" ]
+}

@@ -1,0 +1,19 @@
+name: testSidecar
+description: A dummy sidecar description, used to test the sidecar schema
+image: ubuntu
+script:
+  inline: echo "hello world, but from a script"
+args:
+  - --hello
+  - --world
+environment:
+  HELLO: world
+input-files:
+  - source-path: ./some/local/file
+    destination-path: /some/remote/file
+sidecar-to:
+  - some-service
+volumes:
+  - path: /some/remote/path
+    name: name-of-volume
+    permissions: ro

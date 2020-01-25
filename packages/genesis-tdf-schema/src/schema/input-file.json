@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://whiteblock.io/schemas/test-definition-format/v1.0.0/schema/input-file.json",
+    "type": "object",
+    "properties": {
+        "source-path": {
+            "description": "The local path to the file or directory to be included, relative to the directory that contains the test definition file.",
+            "type": "string"
+        },
+        "destination-path": {
+            "description": "The path within the docker container where this file or directory should be placed.",
+            "type": "string"
+        },
+        "mode": {
+            "description": "The linux mode bits, can be a hex, decimal, or octal value",
+            "type": "string",
+            "pattern": "^[0-9xX]+$"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "source-path",
+        "destination-path"
+    ]
+}

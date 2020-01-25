@@ -1,0 +1,33 @@
+{
+  "name": "genesis-tdf-schema-codegen",
+  "version": "0.0.1-beta.0",
+  "description": "A utility to generate Go structs from the schema defined in genesis-tdf-schema",
+  "main": "lib/index.js",
+  "bin": {
+    "genesis": "./bin/go-yaml-types-codegen"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whiteblock/genesis-ts.git"
+  },
+  "scripts": {
+    "build": "tsc -b .",
+    "clean": "rm -rf node_modules lib tsconfig.tsbuildinfo",
+    "prepare": "yarn build",
+    "test": "jest --config jest.config.js",
+    "start": "./bin/go-yaml-types-codegen"
+  },
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@types/jest": "^24.0.22",
+    "@types/node": "^12.12.7",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.7.2"
+  },
+  "dependencies": {
+    "genesis-string-utils": "0.0.1-beta.0",
+    "genesis-tdf-schema": "0.0.1-beta.0"
+  }
+}

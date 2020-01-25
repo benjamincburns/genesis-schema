@@ -1,0 +1,34 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://whiteblock.io/schemas/test-definition-format/v1.0.0/schema/network.json",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "The name of the network to which the service instance connects.\n\nNetwork packets can only be routed to machines on the same network. If users wish to have packets routed between networks they must define a service which handles this capability.",
+            "type": "string",
+            "pattern": "^[0-9a-zA-Z-_\\.]+$"
+        },
+        "bandwidth": {
+            "description": "The maximum data rate that this network connection can support. The suffixes Kbit, Kbyte, Mbit, Mbyte, Gbit, and Gbyte are observed and are case insensitive. If no suffix is specified, Mbit is assumed.\n\nA value of 0 is equivalent to not allowing any connections on this network.\n\nA value of 'none' means that no limit is enforced.\n\nIf not specified, no bandwidth limit is enforced.",
+            "type": ["string", "number" ],
+            "minimum": 0,
+            "pattern": "^([0-9]+(\\.[0-9]+)? ?([kKmMgG][bB]([yY][tT][eE]|[iI][tT]))?|none)$",
+            "default": "none"
+        },
+        "latency": {
+            "description": "The minimum delay that packets experience before being received by this service instance.\n\nTime suffixes us, ms, and s are observed and are case insensitive. If no suffix is specified, ms is assumed.\n\nPacket delays defined at this level are additive, meaning that a service instance with a latency of 100ms that pings another service instance with a latency of 50ms will observe a total minimum latency of 150ms.\n\nA value of none or 0 means that no minimum packet delay is enforced.\n\nIf not specified, no minimum packet delay is enforced.\n\n",
+            "type": ["string", "number" ],
+            "minimum": 0,
+            "pattern": "^([0-9]+(\\.[0-9]+)? ?([uUmM]?[sS])?|none)$"
+        },
+        "packet-loss": {
+            "description": "A floating point value representing the percentage of packets that are dropped by the network, ranging from 0 to 100%.\n\nThe % suffix is allowed, but not required. It is an error if the value is outside of the range of 0-100%.\n\nDefaults to 0%\n\n",
+            "type": ["string", "number" ],
+            "minimum": 0,
+            "pattern": "^[0-9]+(\\.[0-9]+)?%?$",
+            "default": "0%"
+        }
+    },
+    "additionalProperties": false,
+    "required": [ "name" ]
+}

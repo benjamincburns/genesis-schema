@@ -1,0 +1,46 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://whiteblock.io/schemas/test-definition-format/v1.0.0/schema/sidecar.json",
+    "type": "object",
+    "allOf": [
+        {
+            "properties": {
+                "name": {
+                    "description": "A short string used to reference this sidecar type in your system definition in your tests. Also used to identify logging messages produced by sidecars of this type.",
+                    "type": "string",
+                    "pattern": "^[0-9a-zA-Z-_\\.]+$"
+                },
+                "description": {
+                    "description": "A short description of the sidecar to be used for display purposes.",
+                    "type": "string"
+                },
+                "sidecar-to": {
+                    "description": "A sequence of service names to which instances of this sidecar should be associated. During a test run, one sidecar container instance will be started per container instance of the service(s) with which it is associated.",
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "pattern": "^[0-9a-zA-Z-_\\.]+$"
+                    },
+                    "uniqueItems": true
+                },
+                "volumes": {
+                    "description": "A sequence of volumes shared by the service container that should be mounted in the sidecar container.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "volume.json#"
+                    }
+                },
+                "resources": {
+                    "description": "A mapping that defines the hardware and network resources available to this process.",
+                    "$ref": "resources.json#"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "name",
+                "sidecar-to"
+            ]
+        },
+        { "$ref": "process.json#" }
+    ]
+}

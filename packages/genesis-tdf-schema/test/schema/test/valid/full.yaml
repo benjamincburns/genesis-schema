@@ -1,0 +1,32 @@
+name: myTest
+description: an example test, used to validate the test schema
+# only specifying minimal forms of referenced subschema because these are
+# covered by tests elsewhere
+system:
+  - type: basicService
+  - type: someOtherSerivice
+phases:
+  - name: testPhase1
+    description: an example test phase for testing the phase schema
+    system:
+      # only specifying minimal forms of referenced subschema because these are
+      # covered by tests elsewhere
+      - type: basicService
+        args:
+          - --config
+          - /service/config.json
+    remove:
+      - someOtherService
+    tasks:
+      - type: basicTask
+  - name: testPhase2
+    description: another example test phase for testing the phase schema
+    system:
+      # only specifying minimal forms of referenced subschema because these are
+      # covered by tests elsewhere
+      - type: basicService
+        args:
+          - --config
+          - /service/other-config.json
+    tasks:
+      - type: basicTask

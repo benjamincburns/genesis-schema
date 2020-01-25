@@ -1,0 +1,45 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://whiteblock.io/schemas/test-definition-format/v1.0.0/schema/task.json",
+    "allOf": [
+        {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "description": "The type of Task Runner to execute, to be taken from the set of of Task Runner names defined under the root-level task-runner field.",
+                    "type": "string",
+                    "pattern": "^[0-9a-zA-Z-_\\.]+$"
+                },
+                "description": {
+                    "description": "An optional textual description of the task to be run, used for display purposes.",
+                    "type": "string"
+                },
+                "ignore-exit-code": {
+                    "description": "A boolean value that specifies that the success of this task is not necessary for the test to pass. In other words, when this value is true, nonzero exit codes from this task do not cause the test to fail.\n\nDefaults to false.",
+                    "type": "boolean",
+                    "default": false
+                },
+                "timeout": {
+                    "description": "A floating point value that specifies how long this task may execute before it should be killed by the test execution system. This value accepts the case-insensitive suffixes ms, s, and m. If no suffix is specified, it’s expected that the value is specified in seconds.\n\nA zero value indicates that no timeout should be enforced for this task.\n\nDefaults to 2 minutes.",
+                    "type": ["string", "number"],
+                    "pattern": "^infinite$|^[0-9]+(\\.[0-9]+)? ?([mM]?[sS]|[mM])?$",
+                    "minimum": 0,
+                    "default": "2m"
+                },
+                "networks": {
+                    "description": "A sequence of maps that define the connection of the task to a virtual network via a virtual NIC, where each entry in the sequence represents a NIC that is connected to one of the virtual networks defined under the networks key of the top-level system definition.\n\nIf no network is defined, then the task will not be able to connect to any services",
+                    "type": "array",
+                    "items": {
+                        "$ref": "network.json#"
+                    },
+                    "minItems": 1
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type"
+            ]
+        },
+        { "$ref": "runtime-properties.json#" }
+    ]
+}

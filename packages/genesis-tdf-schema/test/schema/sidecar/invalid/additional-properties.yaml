@@ -1,0 +1,5 @@
+name: testSidecar
+image: ubuntu
+sidecar-to:
+  - some-service
+foo: "bar"

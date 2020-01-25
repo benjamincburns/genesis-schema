@@ -1,0 +1,92 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://whiteblock.io/schemas/test-definition-format/v1.0.0/schema/system-component.json",
+    "type": "object",
+    "allOf": [
+        {
+            "properties": {
+                "type": {
+                    "description": "A string that must match to the name of one of the services defined in the root-level services definition. Used to identify which type of service you want to run.",
+                    "type": "string",
+                    "pattern": "^[0-9a-zA-Z-_\\.]+$"
+                },
+                "name": {
+                    "description": "A name that can be referenced when mutating systems definitions as part of a test phase transition.\n\nIf name isn’t specified, the name of the service type is used. This field is required when multiple services instances exist with the same type.",
+                    "type": "string",
+                    "pattern": "^[0-9a-zA-Z-_\\.]+$"
+                },
+                "count": {
+                    "description": "A positive integer that defines the number of instances of the service type to run.",
+                    "type": "number",
+                    "minimum": 0,
+                    "multipleOf": 1
+                },
+                "port-mappings": {
+                    "description": "A list of port mapping strings, allowing you to expose ports on which this service listens to the open internet. Must match the format 'external:internal'",
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "pattern": "^[0-9]{1,5}:[0-9]{1,5}$"
+                    }
+                },
+                "resources": {
+                    "description": "A map that defines the system resources available to each instance of the service. If not specified, then the resources values defined in the services definition are used, if specified. If neither the services definition nor this map are defined, then default values are used.",
+                    "allOf": [
+                        { "$ref": "resources.json#" },
+                        {
+                            "properties": {
+                                "networks": {
+                                    "description": "A sequence of maps that define the connection of the service to a virtual network via a virtual NIC, where each entry in the sequence represents a NIC that is connected to one of the virtual networks defined under the networks key of the top-level system definition.\n\nIf no network is defined, then the service is connected to a default network with no impairments. This default network has a name of 'default'.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "network.json#"
+                                    },
+                                    "minItems": 1
+                                }
+                            },
+                            "additionalProperties": false
+                        }
+                    ]
+                },
+                "sidecars": {
+                    "description": "An optional sequence of sidecar instance definitions to be run alongside this service. If this sequence is not specified, all sidecars defined as running alongside this service will execute. You can optionally override properties of the original sidecar definition here.",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "type": {
+                                        "description": "The type of sidecar that you'd like to include/modify alongside this service instance, must match the name of a sidecar definition from the root level of the document.",
+                                        "type": "string",
+                                        "pattern": "^[0-9a-zA-Z-_\\.]+$"
+                                    },
+                                    "name": {
+                                        "description": "A name that can be referenced when mutating sidecars as part of a test phase transition.\n\nIf name isn’t specified, the name of the sidecar type is used by default. This field is required when multiple sidecar instances exist with the same type.",
+                                        "type": "string",
+                                        "pattern": "^[0-9a-zA-Z-_\\.]+$"
+                                    },
+                                    "resources": {
+                                        "description": "A map that defines the system resources available to the sidecar. If not specified, then the resources values defined in the original sidecar definition are used. If neither the sidecar definition nor this map are defined, then default values are used.",
+                                        "$ref": "resources.json#"
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "required": [ "type" ]
+                            },
+                            { "$ref": "runtime-properties.json#" }
+                        ]
+                    },
+                    "minItems": 1
+                }
+            },
+            "additionalProperties": false,
+            "required": [ "type" ]
+        },
+        { "$ref": "runtime-properties.json#" }
+    ],
+    "definitions": {
+        "sidecar-mapping": {
+        }
+    }
+}

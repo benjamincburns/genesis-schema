@@ -1,0 +1,3 @@
+source-path: /some/path/to/source
+name: some-name
+foo: "bar"

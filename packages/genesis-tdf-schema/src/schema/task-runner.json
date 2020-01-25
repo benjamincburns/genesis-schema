@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://whiteblock.io/schemas/test-definition-format/v1.0.0/schema/task-runner.json",
+    "type": "object",
+    "allOf": [
+        {
+            "properties": {
+                "name": {
+                    "description": "A short string used to reference this task-runner when creating tasks in test phases. Also used to identify logging messages produced by tasks of this type.",
+                    "type": "string",
+                    "pattern": "^[0-9a-zA-Z-_\\.]+$"
+                },
+                "description": {
+                    "description": "A short description of the task-runner to be used for display purposes.",
+                    "type": "string"
+                },
+                "volumes": {
+                    "description": "Defines a file or directory that can be mounted into a task container.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "volume.json#"
+                    },
+                    "minItems": 1
+                },
+                "resources": {
+                    "description": "A mapping that defines the hardware and network resources available to this process.",
+                    "$ref": "resources.json#"
+                }
+
+            },
+            "additionalProperties": false,
+            "required": [ "name" ]
+        },
+        { "$ref": "process.json#" }
+    ]
+}

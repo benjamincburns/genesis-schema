@@ -1,0 +1,20 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://whiteblock.io/schemas/test-definition-format/v1.0.0/schema/runtime-properties.json",
+    "type": "object",
+    "properties": {
+        "args": {
+            "description": "A sequence of command-line arguments to be passed directly to the service container on startup.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1
+        },
+        "environment": {
+            "description": "A map of environment variables to be set in the container on startup, where the keys in the map are the environment variable names, and the values are the environment variable values.",
+            "type": "object"
+        }
+    },
+    "additionalProperties": false
+}

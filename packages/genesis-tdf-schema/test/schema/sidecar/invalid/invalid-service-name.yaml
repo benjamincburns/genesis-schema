@@ -1,0 +1,4 @@
+name: testSidecar
+image: ubuntu
+sidecar-to:
+  - invalid service name

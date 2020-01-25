@@ -1,0 +1,4 @@
+name: my-network
+bandwidth: 0 mByte
+latency: 0 Ms
+packet-loss: 0%

@@ -1,0 +1,59 @@
+{
+  "name": "genesis-ts",
+  "version": "0.0.1-beta.0",
+  "description": "Whiteblock's monorepo for the TypeScript code for Whiteblock Genesis",
+  "private": true,
+  "scripts": {
+    "build": "tsc -b packages",
+    "build:tdf-schema": "tsc -b packages/genesis-tdf-schema",
+    "build:string-utils": "tsc -b packages/genesis-string-utils",
+    "build:tdf-schema-codegen": "tsc -b packages/genesis-tdf-schema-codegen",
+    "build:tdf-schema-service": "tsc -b packages/genesis-tdf-schema-service",
+    "clean": "yarn clean:tdf-schema; yarn clean:string-utils; yarn clean:tdf-schema-codegen; yarn clean:tdf-schema-service; rm packages/tsconfig.tsbuildinfo; rm -rf node_modules",
+    "clean:tdf-schema": "cd packages/genesis-tdf-schema && yarn clean",
+    "clean:string-utils": "cd packages/genesis-string-utils && yarn clean",
+    "clean:tdf-schema-codegen": "cd packages/genesis-tdf-schema-codegen && yarn clean",
+    "clean:tdf-schema-service": "cd packages/genesis-tdf-schema-service && yarn clean",
+    "preinstall": "node scripts/check-yarn.js",
+    "prepare": "lerna bootstrap && yarn build",
+    "test:tdf-schema": "cd packages/genesis-tdf-schema/ && yarn test",
+    "test:string-utils": "cd packages/genesis-string-utils/ && yarn test",
+    "test:tdf-schema-codegen": "cd packages/genesis-tdf-schema-codegen/ && yarn test",
+    "test": " yarn test:tdf-schema && yarn test:string-utils && yarn test:tdf-schema-codegen",
+    "go-codegen": "yarn && packages/genesis-tdf-schema-codegen/bin/tdf-schema-codegen go",
+    "ts-codegen": "yarn && packages/genesis-tdf-schema-codegen/bin/tdf-schema-codegen typescript",
+    "tdf-schema-service": "yarn && packages/genesis-tdf-schema-service/bin/genesis-tdf-schema-service"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whiteblock/genesis-ts.git"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/whiteblock/genesis-ts/issues"
+  },
+  "homepage": "https://whiteblock.io",
+  "devDependencies": {
+    "husky": "^3.0.9",
+    "lerna": "^3.18.4",
+    "lint-staged": "^9.4.2",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "packages/*/+(src|test)/**/*.ts": [
+      "tslint -c tslint.json --fix",
+      "git add"
+    ]
+  }
+}

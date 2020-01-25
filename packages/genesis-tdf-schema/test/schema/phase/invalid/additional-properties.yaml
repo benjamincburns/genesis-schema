@@ -1,0 +1,4 @@
+name: testPhase
+tasks:
+  - type: basicTask
+foo: "bar"

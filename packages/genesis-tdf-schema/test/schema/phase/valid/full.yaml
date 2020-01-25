@@ -1,0 +1,10 @@
+name: testPhase
+description: an example test phase for testing the phase schema
+system:
+  # only specifying minimal forms of referenced subschema because these are
+  # covered by tests elsewhere
+  - type: basicService
+remove:
+  - some-other-service
+tasks:
+  - type: basicTask

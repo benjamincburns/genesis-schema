@@ -1,0 +1,31 @@
+{
+  "name": "genesis-tdf-schema-service",
+  "version": "0.0.1-beta.0",
+  "description": "The service that serves up the TDF schema",
+  "main": "lib/index.js",
+  "bin": {
+    "genesis-tdf-schema-service": "./bin/genesis-tdf-schema-service"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whiteblock/genesis-ts.git"
+  },
+  "scripts": {
+    "build": "tsc -b .",
+    "clean": "rm -rf node_modules lib tsconfig.tsbuildinfo",
+    "prepare": "yarn build",
+    "start": "./bin/genesis-tdf-schema-service"
+  },
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@types/express": "^4.17.2",
+    "@types/node": "^12.12.7",
+    "typescript": "^3.7.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "genesis-tdf-schema": "0.0.1-beta.0",
+    "winston": "^3.2.1"
+  }
+}

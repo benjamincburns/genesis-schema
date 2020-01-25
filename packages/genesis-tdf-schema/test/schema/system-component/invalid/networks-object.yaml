@@ -1,0 +1,10 @@
+type: superService
+resources:
+  cpus: 4
+  memory: 512 MB
+  storage: 2 GiB
+  networks:
+    name: my-network
+    bandwidth: 10 mbit
+    latency: 0 ms
+    packet-loss: 0%

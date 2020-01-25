@@ -1,0 +1,3 @@
+source-path: local/path/to/source
+destination-path: /remote/destination/path
+foo: "bar"

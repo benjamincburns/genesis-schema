@@ -1,0 +1,27 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://whiteblock.io/schemas/test-definition-format/v1.0.0/schema/script.json",
+    "description": "Allows the user to define a custom script to execute as the main container process. When image is specified, this script overrides the startup command specified by the docker image. Conversely if this key is not defined but the image key is present, the startup command defined in the docker image should be used.\n\nThe value of this item is a mapping which must either the inline key, or the source_path key.",
+    "type": "object",
+    "properties": {
+        "source-path": {
+            "description": "This key defines a path to a local file which will be executed within the docker container with the shebang interpreter directive observed.\n\nThis key is required if the inline key is not specified.",
+            "type": "string"
+        },
+        "inline": {
+            "description": "This key allows the user to specify their script inline in the test definition file, observing YAML’s multiline quoting syntax.\n\nThis key is required if the source-path key is not specified.",
+            "type": "string"
+        }
+    },
+    "additionalProperties": false,
+    "oneOf": [
+        {
+            "required": [ "inline" ],
+            "not": { "required": [ "source-path" ] }
+        },
+        {
+            "required": [ "source-path" ],
+            "not": { "required": [ "inline" ] }
+        }
+    ]
+}

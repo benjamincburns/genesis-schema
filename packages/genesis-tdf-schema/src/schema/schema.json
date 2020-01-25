@@ -1,0 +1,43 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://whiteblock.io/schemas/test-definition-format/v1.0.0/schema/schema.json",
+    "type": "object",
+    "description": "A definition for a set of full-scale distributed systems tests that each exercise a common set of software.",
+    "version": "1.0.1",
+    "properties": {
+        "services": {
+            "description": "An array of component service definitions that can be later referenced to create a specific distributed system definition to test. Services must be included in your system definition to run during your test, and they are expected to run for the lifetime of the test.",
+            "type": "array",
+            "items": {
+                "$ref": "service.json#"
+            } 
+        },
+        "sidecars": {
+            "description": "An array of service sidecar definitions. Sidecars augment, instrument and/or exercise the services under test in some way. One sidecar process is deployed per service process in the system, and they share some machine-level resources. Like services, sidecars run for the lifetime of the test.",
+            "type": "array",
+            "items": {
+                "$ref": "sidecar.json#"
+            } 
+        },
+        "task-runners": {
+            "description": "An array of definitions for processes that are expected to run and terminate during the course of a test phase. These are usually used to run short-lived tasks that perform some setup step, exercise the system in some way, or monitor the system for the occurrence of some event.\n\nTask runners are defined at the root level of the file, but the tasks key in the test phase definition determines when they are executed, and a single task runner definition may be executed by multiple test phases.\n\nTest phases transition when all tasks defined for a phase have terminated. If any task terminates with a nonzero exit code, the test is considered to have failed.",
+            "type": "array",
+            "items": {
+                "$ref": "task-runner.json#"
+            },
+            "minItems": 0
+        },
+        "tests": {
+            "description": "A list of test definitions, with each entry being a map containing a system definition that is composed from the services defined in the top-level “services” map. Test definitions also contain test phases that declare how the system composition or underlying hardware resources should be mutated to emulate the scenario under which the user is exercising their distributed system.",
+            "type": "array",
+            "items": {
+                "$ref": "test.json#"
+            },
+            "minItems": 1
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "tests"
+    ]
+}

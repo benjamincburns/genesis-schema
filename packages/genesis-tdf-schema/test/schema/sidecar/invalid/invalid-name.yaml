@@ -1,0 +1,4 @@
+name: this name is invalid
+image: ubuntu
+sidecar-to:
+  - some-service

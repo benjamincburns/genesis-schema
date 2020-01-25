@@ -1,0 +1,9 @@
+{
+  "files": [],
+  "references": [
+    { "path": "genesis-string-utils" },
+    { "path": "genesis-tdf-schema" },
+    { "path": "genesis-tdf-schema-codegen" },
+    { "path": "genesis-tdf-schema-service" }
+  ]
+}

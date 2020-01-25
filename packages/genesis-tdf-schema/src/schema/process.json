@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://whiteblock.io/schemas/test-definition-format/v1.0.0/schema/process.json",
+    "type": "object",
+    "allOf": [
+        { "$ref": "runtime-properties.json#" },
+        {
+            "properties": {
+                "image": {
+                    "description": "A string that represents a reference to a docker image and tag that can be used to create processes of this type. This string must be of a format that can be accepted by the docker pull command.\n\nThis key is required if the script key is not specified. If image is not specified, the script is run inside of the latest Ubuntu LTE release docker image.",
+                    "type": "string"
+                },
+                "script": {
+                    "$ref": "script.json#"
+                },
+                "input-files": {
+                    "description": "A sequence of local files or directories that should be included in the container when it is created.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "input-file.json#"
+                    }
+                }
+            },
+            "additionalProperties": false,
+            "anyOf": [
+                {
+                    "required": [
+                        "image"
+                    ]
+                },
+                {
+                    "required": [
+                        "script"
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,4 @@
+# This file should fail to validate because you aren't allowed to specify both
+# the source-path field and the inline field
+source-path: something
+inline: something else

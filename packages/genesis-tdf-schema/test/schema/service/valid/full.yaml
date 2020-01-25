@@ -1,0 +1,16 @@
+name: testService
+description: A dummy service definition, used to test the service schema
+image: ubuntu
+script:
+  inline: echo "hello world, but from a script"
+args:
+  - --hello
+  - --world
+environment:
+  HELLO: world
+input-files:
+  - source-path: ./some/local/file
+    destination-path: /some/remote/file
+volumes:
+  - path: /some/local/path
+    name: name-of-volume

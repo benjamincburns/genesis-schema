@@ -1,0 +1,63 @@
+services:
+  - name: geth
+    image: go-ethereum
+    args:
+      - --dev
+      - --logfile=/var/log/geth/geth.log
+    volumes:
+      - path: /var/log/geth
+        name: geth-logs
+    resources:
+      cpus: 2
+      memory: 4 GB
+      storage: 100 GiB
+
+sidecars:
+  - sidecar-to:
+      - geth
+    script:
+      inline: while [ -ne /var/log/geth/geth.log ]; do sleep 1; done && tail -f /var/log/geth/geth.log
+    volumes:
+      - path: /var/log/geth
+        name: geth-logs
+    resources:
+      cpus: 1
+      memory: 512 MB
+      storage: 8 GiB
+
+task-runners:
+  - name: geth-transactions
+    image: nodejs
+    input-files:
+      - source-path: ./transaction-generator
+        destination-path: /opt/transaction-generator
+    script:
+      inline: |
+        cd /opt/transaction-generator
+        npm install
+        npm start -- --endpoint=http://geth-0:8545 --transaction-count=100
+
+tests:
+  - name: exercise-geth
+    description: run a geth testnet and execute some simple transactions
+    system:
+      - type: geth
+        count: 5
+    phases:
+      - name: baseline-tps
+        tasks:
+          - type: geth-transactions
+            timeout: 5 m
+      - name: tps-with-latency
+        system:
+          - type: geth
+            name: geth
+            resources:
+              networks:
+                - name: default
+                  latency: 100 ms
+        tasks:
+          - type: geth-transactions
+            timeout: 5 m
+    
+        

@@ -1,0 +1,28 @@
+# https://cloud.google.com/cloud-build/docs/speeding-up-builds
+# https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values
+substitutions:
+  _PROJECT: cli
+  _IMAGE: 'genesis'
+  _BINARIES_BUCKET : 'assets.whiteblock.io'
+  _VERSION_FILE: '.version'
+timeout: '15m'
+steps:
+  - id: 'build'
+    name: 'node:10.13.0-alpine'
+    args: ['yarn', 'install']
+    waitFor:
+      - '-'
+
+  - id: 'schema'
+    name: 'node:10.13.0-alpine'
+    args: ['sh','-c',"packages/genesis-tdf-schema-service/bin/output-schema >> ./schema.json"]
+    waitFor:
+      - 'build'
+
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args: [ 'cp', 'schema.json', 'gs://$_BINARIES_BUCKET/schema/schema.json' ]
+    waitFor:
+      - 'schema'
+
+options:
+  machineType: 'N1_HIGHCPU_8'

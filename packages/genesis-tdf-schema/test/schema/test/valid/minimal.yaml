@@ -1,0 +1,5 @@
+name: myTest
+# only specifying minimal forms of referenced subschema because these are
+# covered by tests elsewhere
+system:
+  - type: basicService

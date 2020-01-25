@@ -1,0 +1,4 @@
+type: someType
+sidecars:
+  - type: someSidecar
+    name: bad sidecar name with spaces

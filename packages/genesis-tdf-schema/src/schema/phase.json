@@ -1,0 +1,49 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://whiteblock.io/schemas/test-definition-format/v1.0.0/schema/phase.json",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "A short name that is used to identify the test phase in the UI and data analysis.",
+            "type": "string",
+            "pattern": "^[0-9a-zA-Z-_\\.]+$"
+        },
+        "description": {
+            "description": "A description of the test phase to be shown in the UI.",
+            "type": "string"
+        },
+        "system": {
+            "description": "A sequence of service instance maps that are intended to add to, or modify the existing service instance definitions.\n\nIf the name specified matches the name of a preexisting service instance, that service instance definition is modified. If the name does not match an existing service instance definition, the service instance specified here is added to the system.\n\nWhen modifying an existing service instance definition, only the name field is required, and only the values of the keys that are specified are modified. The special value default is permitted to reset the value of the specified key to its default.",
+            "type": "array",
+            "items": {
+                "$ref": "system-component.json#"
+            },
+            "minItems": 0
+        },
+        "remove": {
+            "description": "A list of service names to remove from the system during this test phase.",
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[0-9a-zA-Z-_\\.]+$"
+            },
+            "minItems": 0
+        },
+        "tasks": {
+            "description": "A sequence of tasks to run during this test phase, as defined by the task-runners key at the root level of the document. Test phases don't complete until all tasks have finished running, and nonzero task exit codes are used to terminate the test with a failure status.",
+            "type": "array",
+            "items": {
+                "$ref": "task.json#"
+            },
+            "minItems": 0
+        },
+        "duration": {
+            "description": "The time to wait for until moving onto the first phase",
+            "type": ["string", "number"],
+            "pattern": "^infinite$|^[0-9]+(\\.[0-9]+)? ?([mM]?[sS]|[mM])?$",
+            "minimum": 0
+        }
+    },
+    "additionalProperties": false,
+    "required": [ "name" ]
+}

@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig-base.json",
+  "compilerOptions": {
+    "outDir": "lib",                      /* Redirect output structure to the directory. */
+    "rootDir": "src",
+    "typeRoots": [                            /* List of folders to include type definitions from. */
+      "../../node_modules/@types",
+      "./node_modules/@types",
+      "./typings"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.json"
+  ],
+  "references": [
+    /* { "path": "../some-other-package" } */
+  ]
+}

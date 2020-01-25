@@ -1,0 +1,18 @@
+name: testTaskRunner
+description: A dummy task-runner definition, used to test the task-runner schema
+image: ubuntu
+script:
+  inline: echo "hello world, but from a script"
+args:
+  - --hello
+  - --world
+environment:
+  HELLO: world
+input-files:
+  - source-path: ./some/local/file
+    destination-path: /some/remote/file
+volumes:
+  - name: out1
+    path: /some/output1
+  - name: out2
+    path: /some/output2

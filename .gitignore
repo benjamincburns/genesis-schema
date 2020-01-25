@@ -1,0 +1,20 @@
+# npm/yarn stuff
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+yarn.lock
+package-lock.json
+
+# dependencies
+node_modules/
+
+# IDE/editor files
+.env
+.env-*
+.vscode
+.code-workspace
+
+# Built code
+lib
+tsconfig.tsbuildinfo
+.idea

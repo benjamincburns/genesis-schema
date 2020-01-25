@@ -1,0 +1,29 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://whiteblock.io/schemas/test-definition-format/v1.0.0/schema/resources.json",
+    "type": "object",
+    "properties": {
+        "cpus": {
+            "description": "A positive integer that defines the number of CPU cores to be used for each running instance of this service.\n\nNote that when this value is defined at the test phase level it overrides the value specified at the test level, and similarly when specified at the test level it overrides the value specified in the root level service/sidecar/task-runner definitions. Defaults to 1",
+            "type": "number",
+            "multipleOf": 1,
+            "minimum": 1,
+            "default": 1
+        },
+        "memory": {
+            "description": "The amount of RAM to be allocated for each running instance of this service.\n\nSize suffixes KB, KiB, MB, MiB, GB, GiB, TB, and TiB are observed and are case insensitive. All suffixed values are to be interpreted as “power of twos” sizes (e.g. 5MB is equivalent to 5MiB by a strict definition of MiB). Value is interpreted as MB if no suffix is used.\n\nNote that when this value is defined at the test phase level it overrides the value specified at the test level, and similarly when specified at the test level it overrides the value specified in the root level service/sidecar/task-runner definitions.\n\nDefaults to 512 MiB.",
+            "type": ["string", "number"],
+            "minimum": 1,
+            "pattern": "^[0-9]+ ?[kKmMgG][iI]?[bB]$",
+            "default": "512 MiB"
+        },
+        "storage": {
+            "description": "The amount of disk space to be made available for each running instance of the service.\n\nSize suffixes KB, KiB, MB, MiB, GB, GiB, TB, and TiB are observed and are case insensitive. All suffixed values are to be interpreted as “power of twos” sizes (e.g. 5MB is equivalent to 5MiB by a strict definition of MiB). Value is interpreted as GiB if no suffix is used.\n\nNote that when this value is defined at the test phase level it overrides the value specified at the test level, and similarly when specified at the test level it overrides the value specified in the root level service/sidecar/task-runner definitions.\n\nDefaults to 8 GiB",
+            "type": ["string", "number"],
+            "minimum": 1,
+            "pattern": "^[0-9]+ ?[kKmMgGtT][iI]?[bB]$",
+            "default": "8 GiB"
+        }
+    },
+    "additionalProperties": false
+}

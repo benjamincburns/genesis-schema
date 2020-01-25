@@ -1,0 +1,9 @@
+description: A dummy task definition, used to test the task schema
+type: helloWorldTask
+args:
+  - --hello
+  - --world
+environment:
+  HELLO: world
+ignore-exit-code: true
+timeout: 5s

@@ -1,0 +1,2 @@
+script:
+  inline: echo "hello world, but from a script"

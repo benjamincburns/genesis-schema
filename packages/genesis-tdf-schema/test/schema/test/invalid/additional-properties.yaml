@@ -1,0 +1,10 @@
+name: myTest
+# only specifying minimal forms of referenced subschema because these are
+# covered by tests elsewhere
+system:
+  type: basicService
+phases:
+  - name: testPhase1
+    tasks:
+      type: basicTask
+foo: "bar"

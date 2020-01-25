@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://whiteblock.io/schemas/test-definition-format/v1.0.0/schema/volume.json",
+    "type": "object",
+    "properties": {
+        "path": {
+            "description": "Defines the path to which the file or directory will be mounted inside of the sidecar or service container.",
+            "type": "string"
+        },
+        "name": {
+            "description": "The name of a volume. Must correspond to an exposed volume definition for a service to which this container is a sidecar, or for a volume that is exposed by another sidecar that is attached to the corresponding service.",
+            "type": "string",
+            "pattern": "^[0-9a-zA-Z-_]+$"
+        },
+        "permissions": {
+            "description": "Defines the file level permissions used when mounting the volume into the sidecar. Can be one of ‘ro’ or ‘rw’. Defaults to ‘rw’ if not specified.",
+            "type": "string",
+            "enum": [
+                "ro",
+                "rw"
+            ],
+            "default": "rw"
+        },
+        "scope": {
+            "description": "The scope of the volume, either unique to each occurrence of its mount point, or singleton to the complete system.",
+            "type": "string",
+            "enum": [
+                "local",
+                "singleton"
+            ],
+            "default": "local"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "path",
+        "name"
+    ]
+}

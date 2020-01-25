@@ -1,0 +1,20 @@
+services:
+  - name: geth
+    image: go-ethereum
+    args:
+      - --dev
+      - --logfile=/var/log/geth/geth.log
+    volumes:
+      - path: /var/log/geth
+        name: geth-logs
+    resources:
+      cpus: 2
+      memory: 4 GB
+      storage: 100 GiB
+
+tests:
+  - name: exercise-geth
+    description: run a geth testnet and execute some simple transactions
+    system:
+      - type: geth
+        count: 5

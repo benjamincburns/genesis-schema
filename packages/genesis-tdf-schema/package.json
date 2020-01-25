@@ -1,0 +1,38 @@
+{
+  "name": "genesis-tdf-schema",
+  "version": "0.0.1-beta.0",
+  "description": "JSON Schema for the Whiteblock Genesis Test Definition Format",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc -b .",
+    "clean": "rm -rf node_modules lib tsconfig.tsbuildinfo",
+    "prepare": "yarn build",
+    "test": "jest --config jest.config.js",
+    "start": "node lib/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whiteblock/genesis-ts.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/whiteblock/genesis-ts/issues"
+  },
+  "homepage": "https://whiteblock.io",
+  "devDependencies": {
+    "@types/ajv": "^1.0.0",
+    "@types/jest": "^24.0.20",
+    "@types/lodash.merge": "^4.6.6",
+    "@types/node": "^12.11.7",
+    "ajv": "^6.10.2",
+    "any-json": "^3.1.0",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.6.4"
+  },
+  "dependencies": {
+    "genesis-string-utils": "0.0.1-beta.0",
+    "json-ptr": "^1.2.0",
+    "lodash.merge": "^4.6.2"
+  }
+}
