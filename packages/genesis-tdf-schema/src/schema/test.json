@@ -30,13 +30,13 @@
         "timeout": {
             "description": "An integer value that specifies how long this test may execute before it should be killed by the test execution system. This value accepts the case-insensitive suffixes ms, s, and m. If no suffix is specified, it’s expected that the value is specified in seconds.\n\nA zero value indicates that no timeout should be enforced for this task.\n\n",
             "type": ["string", "number"],
-            "pattern": "^infinite$|^[0-9]+(\\.[0-9]+)? ?([mM]?[sS]|[mM])?$",
+            "pattern": "^infinite$|^[0-9]+(\\.[0-9]+)? ?([mM]?[sS]|[mM]|[hH])?$",
             "minimum": 0
         },
         "wait-for": {
             "description": "The time to wait for until moving onto the first phase",
             "type": ["string", "number"],
-            "pattern": "^infinite$|^[0-9]+(\\.[0-9]+)? ?([mM]?[sS]|[mM])?$",
+            "pattern": "^infinite$|^[0-9]+(\\.[0-9]+)? ?([mM]?[sS]|[mM]|[hH])?$",
             "minimum": 0
         }
     },
